@@ -11,6 +11,7 @@ struct Nil;
 struct Pair(i32, f32);
 
 // A struct with two fields
+#[derive(Debug)]
 struct Point {
     x: f32,
     y: f32,
@@ -18,14 +19,21 @@ struct Point {
 
 // Struct can be reused as fields of another struct.
 #[allow(dead_code)]
+#[derive(Debug)]
 struct Rectangle {
     p1: Point,
     p2: Point,
 }
 
+fn square(p0: Point, len: f32) -> Rectangle {
+	let pf = Point { x: p0.x + len, y: p0.y + len };
+	Rectangle { p1: p0, p2: pf }
+}
+
 fn rect_area(rect: Rectangle) -> f32 {
-    let Rectangle { p1: r.p1 , p2: r.p2 } = r;
-    r.p1; * r.p2
+	let x_abs = (rect.p1.x - rect.p2.x).abs();
+	let y_abs = (rect.p1.y - rect.p2.y).abs();
+	x_abs * y_abs
 }
 
 fn main() {
@@ -72,5 +80,9 @@ fn main() {
 
     println!("pair contains {:?} and {:?}", integer, decimal);
 
-    println!("area: {}", rect_area(_rectangle);
+    let pnt_1 = Point { x: 0.0, y: 0.0 };
+    let pnt_2 = Point { x: 4.0, y: 2.0 };
+    println!("area: {}", rect_area(Rectangle {p1: pnt_1, p2: pnt_2}));
+    println!("square: {:?}", square(Point {x: 0.0, y: 0.0}, 8.0));
+    println!("area square: {:?}", rect_area(square(Point {x: 0.0, y: 0.0}, 8.0)));
 }
